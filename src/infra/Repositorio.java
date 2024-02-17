@@ -1,2 +1,6 @@
-package infra;public class Repositorio {
+package infra;
+
+public abstract class Repositorio {
+
+
 }
