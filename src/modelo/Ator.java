@@ -9,4 +9,14 @@ public class Ator extends Pessoa{
       }
 
 
+    public boolean adicionarFilme(Filme novo) {
+        for (Object filme : this.getFilmes()) {
+            if (novo.equals(filme))
+                return false;
+        }
+        this.filmes.add(novo);
+        return true;
+    }
+
+
 }

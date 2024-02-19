@@ -7,7 +7,7 @@ import java.util.List;
 
 public abstract class Pessoa {
     private String nome;
-    protected List filmes;
+    protected List<Filme> filmes;
 
     public Pessoa(String nome){
         this.nome = nome;
@@ -18,18 +18,16 @@ public abstract class Pessoa {
         return nome;
     }
 
-    public List getFilmes() {
+    public List<Filme> getFilmes() {
         return filmes;
     }
 
-    public boolean comparaFilme(Filme filme){
-        return filme != null && !this.equals(filme);}
-
-
-    public void adicionarFilme(Filme filme){
-        if (comparaFilme(filme)){
-            filmes.add(filme);
+    public boolean adicionarFilme(Filme novo) {
+        for (Object filme : this.getFilmes()) {
+            if (novo.equals(filme))
+                return false;
         }
+        this.filmes.add(novo);
+        return true;
     }
-
 }
