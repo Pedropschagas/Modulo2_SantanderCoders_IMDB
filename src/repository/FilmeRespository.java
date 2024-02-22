@@ -1,5 +1,6 @@
 package repository;
 
+import Infra.BancoDeDados;
 import modelo.Ator;
 import modelo.Diretor;
 import modelo.Filme;
@@ -9,7 +10,10 @@ import java.util.List;
 
 public  class FilmeRespository {
 
-    List<Filme> filmes;
+    private static List<Filme> filmes = BancoDeDados.filmes;
+    private static DiretorRepository diretorRepository =  new DiretorRepository();
+    private static AtorRepository atorRepository =  new AtorRepository();
+
 
 
     public boolean add(Filme filme) {
@@ -49,18 +53,31 @@ public  class FilmeRespository {
     }
 
     public boolean update(int index, Object atorOuDiretor) {
+        Filme filmeAtual = filmes.get(index);
         if(atorOuDiretor instanceof Ator){
-            filmes.get(index).adicionarAtor((Ator) atorOuDiretor);
+            Ator novo = (Ator) atorOuDiretor;
+            filmeAtual.adicionarAtor(novo);
+            Ator ator = atorRepository.findAtor(novo.getNome());
+            if(ator == null){
+                atorRepository.add(novo);
+            }
+            atorRepository.addFilme(novo,filmeAtual);
             return true;
         }
         if (atorOuDiretor instanceof Diretor) {
-            filmes.get(index).adicionarDiretor((Diretor) atorOuDiretor);
+            Diretor novo = (Diretor) atorOuDiretor;
+            filmeAtual.adicionarDiretor((Diretor) atorOuDiretor);
+            Diretor diretor = diretorRepository.findDiretor(novo.getNome());
+            if (diretor == null) {
+                diretorRepository.add(novo);
+            }
+            diretorRepository.addFilme(novo, filmeAtual);
             return true;
         }
         return false;
     }
 
-
-
-
+    public List<Filme> listar(){
+        return filmes;
+    }
 }

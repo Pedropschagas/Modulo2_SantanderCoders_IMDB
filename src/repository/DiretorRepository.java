@@ -1,12 +1,14 @@
 package repository;
 
+import Infra.BancoDeDados;
 import modelo.Diretor;
+import modelo.Filme;
 
 import java.util.List;
 
 public class DiretorRepository {
 
-    static  List<Diretor> diretores;
+    private static List<Diretor> diretores = BancoDeDados.diretores;
 
     public boolean add(Diretor diretor) {
         if (findByName(diretor.getNome()) == -1) {
@@ -42,6 +44,13 @@ public class DiretorRepository {
         }
         return null;
     }
-
+    public boolean addFilme(Diretor nome, Filme filme) {
+        int indexDiretor = findByName(nome.getNome());
+        if (indexDiretor != -1) {
+            diretores.get(indexDiretor).addFilme(filme);
+            return true;
+        }
+        return false;
+    }
 
 }

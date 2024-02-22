@@ -1,32 +1,41 @@
-package modelo;
+package view;
+
+import Infra.BancoDeDados;
+import modelo.Ator;
+import modelo.Diretor;
+import modelo.Filme;
+import service.AtorService;
+import service.DiretorService;
+import service.FilmeService;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
-public class Menu {
+public class MenuController {
 
-
-
+    private FilmeService filmeService = new FilmeService();
+    private DiretorService diretorService = new DiretorService();
+    private AtorService atorService = new AtorService();
+    private BancoDeDados bancoDeDados = new BancoDeDados();
 
     public void faixa() {
         System.out.println("=====================\n" +
                 "   || ADA FILMS ||\n" +
-                "=====================\n");
+                "=====================");
     }
 
     public void inicial() {
         faixa();
         System.out.println(
-                "1 - Cadastrar filme\n" +
-                "2 - Cadastrar Diretor\n" +
-                "3 - Cadastrar Ator\n" +
-                "4 - Sair\n");
+                "1 - Filme\n" +
+                "2 - Ator\n" +
+                "3 - Diretor\n" +
+                "4 - Listar todos os filmes\n" +
+                "0 - Sair");
     }
 
-    public Filme recebeFilme() {
+    public Filme cadastrarFilme() {
 
         Scanner sc = new Scanner(System.in);
 
@@ -40,6 +49,7 @@ public class Menu {
 
         System.out.println("Em apenas numeros, quanto custou para fazer esse filme?");
         Double orcamento = sc.nextDouble();
+        sc.nextLine();
 
         LocalDate dataLancamento = null;
         boolean valida = false;
@@ -58,21 +68,17 @@ public class Menu {
         } while (!valida);
 
         Filme filme = new Filme(nome, descricao, orcamento, dataLancamento);
-
+        filmeService.add(nome, descricao, orcamento, dataLancamento);
 
         String maisDiretor = "n";
         do {
             System.out.print("Informe o nome do diretor do filme: ");
-            Diretor diretor = new Diretor(sc.nextLine());
-            diretor.adicionarFilme(filme);
+            Diretor diretor = new Diretor(sc.nextLine().toLowerCase());
+            diretor.addFilme(filme);
             if(!filme.adicionarDiretor(diretor)) {
                 System.out.println("Este diretor já está nesse filme.");
             }
-
-
-
-
-            System.out.println("O filme possui mais de um diretor (s/n)?");
+            System.out.println("O filme possui mais um diretor (s/n)?");
             maisDiretor = sc.nextLine().toLowerCase();
 
         } while (!maisDiretor.equals("n"));
@@ -83,7 +89,7 @@ public class Menu {
         do {
             System.out.println("Informe o nome do Ator: ");
             Ator ator = new Ator(sc.nextLine());
-            ator.adicionarFilme(filme);
+            ator.addFilme(filme);
             if(!filme.adicionarAtor(ator)) {
                 System.out.println("Este ator já consta nesse filme.");
             }
@@ -93,10 +99,38 @@ public class Menu {
 
         } while (!maisAtor.equals("n"));
 
-
-
-
         return filme;
     }
 
+    public void cadastrarDiretor(){
+        Scanner sc = new Scanner(System.in);
+        String maisDiretor = "n";
+        do {
+            System.out.print("Informe o nome do diretor do filme: ");
+            if(!diretorService.add(sc.nextLine().toLowerCase())) {
+                System.out.println("Este diretor já está no nosso banco de dados.");
+            }
+            System.out.println("Deseja cadastrar mais um diretor (s/n)?");
+            maisDiretor = sc.nextLine().toLowerCase();
+
+        } while (!maisDiretor.equals("n"));
+    }
+
+    public void cadastrarAtor(){
+        Scanner sc = new Scanner(System.in);
+        String maisAtor = "n";
+        do {
+            System.out.print("Informe o nome do Ator do filme: ");
+            if(!diretorService.add(sc.nextLine().toLowerCase())) {
+                System.out.println("Este ator já está no nosso banco de dados.");
+            }
+            System.out.println("Deseja cadastrar mais um ator (s/n)?");
+            maisAtor = sc.nextLine().toLowerCase();
+
+        } while (!maisAtor.equals("n"));
+    }
+
+    public void listarFilmes() {
+        filmeService.listar();
+    }
 }

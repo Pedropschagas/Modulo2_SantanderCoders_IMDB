@@ -17,12 +17,12 @@ public abstract class Pessoa {
     public String getNome() {
         return nome;
     }
-
     public List<Filme> getFilmes() {
         return filmes;
     }
 
-    public boolean adicionarFilme(Filme novo) {
+
+    public boolean addFilme(Filme novo) {
         for (Object filme : this.getFilmes()) {
             if (novo.equals(filme))
                 return false;

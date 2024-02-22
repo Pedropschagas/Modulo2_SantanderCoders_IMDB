@@ -1,5 +1,6 @@
 package repository;
 
+import Infra.BancoDeDados;
 import modelo.Ator;
 import modelo.Filme;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public class AtorRepository {
 
-    static List<Ator> atores;
+   private static List<Ator> atores = BancoDeDados.atores;
 
     public boolean add(Ator ator) {
         if (findByName(ator.getNome()) == -1) {
@@ -47,7 +48,7 @@ public class AtorRepository {
     public boolean addFilme(Ator nome, Filme filme) {
         int indexAtor = findByName(nome.getNome());
         if (indexAtor != -1) {
-            atores.get(indexAtor).adicionarFilme(filme);
+            atores.get(indexAtor).addFilme(filme);
             return true;
         }
         return false;

@@ -59,7 +59,7 @@ public class Filme {
             if (novo.equals(ator))
                 return false;
         }
-        this.elenco.add(novo);
+        elenco.add(novo);
         return true;
     }
 
@@ -68,7 +68,7 @@ public class Filme {
             if (novo.equals(diretor))
                 return false;
         }
-        this.diretores.add(novo);
+        diretores.add(novo);
         return true;
     }
 }
