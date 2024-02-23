@@ -1,5 +1,7 @@
 package service;
 
+import modelo.Ator;
+import modelo.Diretor;
 import modelo.Filme;
 import repository.FilmeRespository;
 
@@ -41,7 +43,34 @@ public class FilmeService {
            System.out.println("Por favor, informe valores validos para o filme e/ou o ator/diretor.");
            return false;
        }
+       int indexFilme = filmeRespository.findByName(nome, dataLancamento);
+       if(indexFilme == -1){
+           return false;
+       }
        return  filmeRespository.update(filmeRespository.findByName(nome, dataLancamento), atorOuDiretor);
+    }
+
+    public StringBuilder findfilme(String nome, LocalDate dataLancamento){
+        Filme filme = filmeRespository.findFilme(nome, dataLancamento);
+        StringBuilder show = new StringBuilder("Nome: " + filme.getNome() + "\n" +
+                "Data de Lancamento: " + filme.getDataLancamento() + "\n" +
+                "Orcamento: " + filme.getOrcamento() + "\n" +
+                "Descrição: " + filme.getDescricao() + "\n" +
+                "Diretores: \n");
+        if(filme.getDiretores().isEmpty()) {
+            show.append("-").append("Não há diretores cadastrados.");
+        }
+        for (Diretor diretor : filme.getDiretores()){
+            show.append("- ").append(diretor.getNome()).append("\n");
+        }
+        show.append("Elenco: \n");
+        if(filme.getElenco().isEmpty()) {
+            show.append("-").append("Não há atores cadastrados.");
+        }
+        for (Ator ator : filme.getElenco()){
+            show.append("- ").append(ator.getNome()).append("\n");
+        }
+        return show;
     }
 
     public void listar(){

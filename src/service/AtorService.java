@@ -4,6 +4,8 @@ import modelo.Ator;
 import modelo.Filme;
 import repository.AtorRepository;
 
+import java.util.List;
+
 public class AtorService {
 
     private static AtorRepository atorRepository =  new AtorRepository();
@@ -34,6 +36,19 @@ public class AtorService {
 
         }
         return new StringBuilder("Ator não encontrado!");
+    }
+
+    public StringBuilder findAll(){
+        List<Ator> atores = atorRepository.Listar();
+
+        if(atores.isEmpty()){
+            return new StringBuilder("Não há atores cadastrados");
+        }
+        StringBuilder listaAtores = new StringBuilder("Atores: \n");
+        for (Ator ator : atores){
+            listaAtores.append("-").append(ator.getNome()).append("\n");
+        }
+        return listaAtores;
     }
 
 }
