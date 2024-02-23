@@ -54,4 +54,6 @@ public class AtorRepository {
         return false;
     }
 
+    public List<Ator> Listar() { return atores;}
+
 }

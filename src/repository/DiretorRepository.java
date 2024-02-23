@@ -53,4 +53,6 @@ public class DiretorRepository {
         return false;
     }
 
+    public List<Diretor> Listar() { return diretores;}
+
 }

@@ -54,6 +54,9 @@ public  class FilmeRespository {
 
     public boolean update(int index, Object atorOuDiretor) {
         Filme filmeAtual = filmes.get(index);
+        if (filmeAtual == null) {
+            return false;
+        }
         if(atorOuDiretor instanceof Ator){
             Ator novo = (Ator) atorOuDiretor;
             filmeAtual.adicionarAtor(novo);
