@@ -52,6 +52,8 @@ public  class FilmeRespository {
         return null;
     }
 
+    //Este método recebe o index de um filme e um objeto do tipo ator ou diretor e tem a função de
+    //associar atores a filmes.
     public boolean update(int index, Object atorOuDiretor) {
         Filme filmeAtual = filmes.get(index);
         if (filmeAtual == null) {

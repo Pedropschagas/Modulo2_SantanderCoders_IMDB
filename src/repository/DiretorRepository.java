@@ -27,6 +27,8 @@ public class DiretorRepository {
         return false;
     }
 
+    //Método para achar um diretor pelo nome e retornar sua posição na lista do Banco de dados.
+
     public int findByName(String name) {
         for (Diretor diretor : diretores) {
             if (name.equals(diretor.getNome())) {
@@ -36,6 +38,7 @@ public class DiretorRepository {
         return -1;
     }
 
+    //Método para localizar o diretor e exibir o seu portfólio de filmes.
     public Diretor findDiretor(String name) {
         for (Diretor diretor : diretores) {
             if (name.equals(diretor.getNome())) {

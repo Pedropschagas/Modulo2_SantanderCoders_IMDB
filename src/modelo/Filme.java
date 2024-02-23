@@ -25,18 +25,23 @@ public class Filme {
     public String getNome() {
         return nome;
     }
+
     public String getDescricao() {
         return descricao;
     }
+
     public double getOrcamento() {
         return orcamento;
     }
+
     public LocalDate getDataLancamento() {
         return dataLancamento;
     }
+
     public List<Ator> getElenco() {
         return Collections.unmodifiableList(this.elenco);
     }
+
     public List<Diretor> getDiretores() {
         return Collections.unmodifiableList(this.diretores);
     }
@@ -44,17 +49,17 @@ public class Filme {
 
     @Override
     public boolean equals(Object filme) {
-        if(filme == this) {
+        if (filme == this) {
             return true;
         }
-        if (!(filme instanceof Filme)){
+        if (!(filme instanceof Filme)) {
             return false;
         }
         Filme f = (Filme) filme;
         return this.nome.equals(f.getNome()) && this.dataLancamento == f.getDataLancamento();
     }
 
-    public boolean adicionarAtor(Ator novo){
+    public boolean adicionarAtor(Ator novo) {
         for (Object ator : this.getElenco()) {
             if (novo.equals(ator))
                 return false;
@@ -63,7 +68,7 @@ public class Filme {
         return true;
     }
 
-    public boolean adicionarDiretor(Diretor novo){
+    public boolean adicionarDiretor(Diretor novo) {
         for (Object diretor : this.getDiretores()) {
             if (novo.equals(diretor))
                 return false;

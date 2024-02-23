@@ -1,11 +1,8 @@
 package view;
 
-import Infra.BancoDeDados;
 import modelo.Ator;
 import modelo.Diretor;
 import modelo.Filme;
-import service.AtorService;
-import service.DiretorService;
 import service.FilmeService;
 
 import java.time.LocalDate;
@@ -14,11 +11,9 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class FilmeController {
+
+    private MenuController menuController = new MenuController();
     private FilmeService filmeService = new FilmeService();
-    private DiretorService diretorService = new DiretorService();
-    private AtorService atorService = new AtorService();
-    private BancoDeDados bancoDeDados = new BancoDeDados();
-    private AtorController atorController = new AtorController();
 
     public void opcoesFilme() {
         Scanner sc = new Scanner(System.in);
@@ -26,6 +21,7 @@ public class FilmeController {
 
 
         while (opcao != 0) {
+            menuController.faixa();
             System.out.println(
                     "1 - Cadastrar filme\n" +
                             "2 - Buscar Filme\n" +
@@ -38,9 +34,11 @@ public class FilmeController {
                     case 0:
                         break;
                     case 1:
+                        menuController.faixa();
                         cadastrarFilme();
                         break;
                     case 2:
+                        menuController.faixa();
                         sc.nextLine();
                         System.out.println("Informe o nome do filme: ");
                         String nome = sc.nextLine();
@@ -48,6 +46,7 @@ public class FilmeController {
                         System.out.println(filmeService.findfilme(nome, lancamento));
                         break;
                     case 3:
+                        menuController.faixa();
                         filmeService.listar();
                         break;
                     default:
@@ -62,13 +61,12 @@ public class FilmeController {
     }
 
 
-
     public Filme cadastrarFilme() {
 
         Scanner sc = new Scanner(System.in);
 
         System.out.println("== Cadastro de Filmes ==\n" +
-                "Digite o nome do filme: \n");
+                "Digite o nome do filme:");
         String nome = sc.nextLine().toLowerCase();
 
         System.out.println("Insira uma breve descrição do filme: ");
@@ -79,7 +77,7 @@ public class FilmeController {
         Double orcamento = sc.nextDouble();
         sc.nextLine();
 
-        LocalDate dataLancamento =  lancamento();
+        LocalDate dataLancamento = lancamento();
 
         Filme filme = new Filme(nome, descricao, orcamento, dataLancamento);
         filmeService.add(nome, descricao, orcamento, dataLancamento);
@@ -90,7 +88,7 @@ public class FilmeController {
             Diretor diretor = new Diretor(sc.nextLine().toLowerCase());
             diretor.addFilme(filme);
             filmeService.update(nome, dataLancamento, diretor);
-            if(!filme.adicionarDiretor(diretor)) {
+            if (!filme.adicionarDiretor(diretor)) {
                 System.out.println("Este diretor já está nesse filme.");
             }
             System.out.println("O filme possui mais um diretor (s/n)?");
@@ -106,7 +104,7 @@ public class FilmeController {
             Ator ator = new Ator(sc.nextLine());
             ator.addFilme(filme);
             filmeService.update(nome, dataLancamento, ator);
-            if(!filme.adicionarAtor(ator)) {
+            if (!filme.adicionarAtor(ator)) {
                 System.out.println("Este ator já consta nesse filme.");
             }
 
@@ -124,7 +122,7 @@ public class FilmeController {
     }
 
     //Funcoes auxiliares
-    public LocalDate lancamento(){
+    public LocalDate lancamento() {
         Scanner sc = new Scanner(System.in);
         LocalDate dataLancamento = null;
         boolean valida = false;

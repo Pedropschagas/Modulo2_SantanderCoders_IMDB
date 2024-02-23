@@ -14,13 +14,14 @@ public class BancoDeDados {
     public static List<Diretor> diretores = new ArrayList();
 
 
-    public void add(Filme filme){
+    public void add(Filme filme) {
         filmes.add(filme);
     }
 
-    public void delete(int indexOfFilme){
+    public void delete(int indexOfFilme) {
         filmes.remove(indexOfFilme);
     }
+
     public boolean addArtista(int indexFilme, Object atorOuDiretor) {
         if (atorOuDiretor instanceof Ator) {
             filmes.get(indexFilme).adicionarAtor((Ator) atorOuDiretor);

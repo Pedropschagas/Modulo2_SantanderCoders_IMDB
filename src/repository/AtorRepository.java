@@ -27,6 +27,7 @@ public class AtorRepository {
         return false;
     }
 
+    //Método para achar um ator pelo nome e retornar sua posição na lista do Banco de dados.
     public int findByName(String name) {
         for (Ator ator : atores) {
             if (name.equals(ator.getNome())) {
@@ -36,6 +37,7 @@ public class AtorRepository {
         return -1;
     }
 
+    //Método para achar um ator e retornar o seu nome.
     public Ator findAtor(String name) {
         for (Ator ator : atores) {
             if (name.equals(ator.getNome())) {

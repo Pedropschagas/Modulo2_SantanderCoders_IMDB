@@ -14,6 +14,7 @@ public class AtorController {
 
     private FilmeService filmeService = new FilmeService();
     private AtorService atorService = new AtorService();
+    private MenuController menuController = new MenuController();
 
 
     public void opcoesAtor() {
@@ -21,6 +22,7 @@ public class AtorController {
         int opcao = -1;
 
         while (opcao != 0) {
+            menuController.faixa();
             System.out.println(
                     "1 - Cadastrar ator\n" +
                             "2 - Associar Ator ao filme\n" +
@@ -34,18 +36,22 @@ public class AtorController {
                     case 0:
                         break;
                     case 1:
+                        menuController.faixa();
                         cadastrarAtor();
                         break;
                     case 2:
+                        menuController.faixa();
                         associarAtor();
                         break;
                     case 3:
+                        menuController.faixa();
                         System.out.println("Informe o nome do ator: ");
                         sc.nextLine();
                         System.out.println(atorService.findAtor(sc.nextLine().toLowerCase()));
                         break;
 
                     case 4:
+                        menuController.faixa();
                         System.out.println(atorService.findAll());
                         break;
                     default:
@@ -58,12 +64,14 @@ public class AtorController {
             }
         }
     }
-    public void cadastrarAtor(){
+
+    public void cadastrarAtor() {
         Scanner sc = new Scanner(System.in);
         String maisAtor = "n";
         do {
+            menuController.faixa();
             System.out.print("Informe o nome do Ator do filme: ");
-            if(!atorService.add(sc.nextLine().toLowerCase())) {
+            if (!atorService.add(sc.nextLine().toLowerCase())) {
                 System.out.println("Este ator já está no nosso banco de dados.");
             }
             System.out.println("Deseja cadastrar mais um ator (s/n)?");
@@ -71,9 +79,11 @@ public class AtorController {
 
         } while (!maisAtor.equals("n"));
     }
-    public void associarAtor(){
+
+    public void associarAtor() {
         Scanner sc = new Scanner(System.in);
 
+        menuController.faixa();
         System.out.println("Informe o nome do filme: ");
         String nomeFilme = sc.nextLine();
 
@@ -81,16 +91,17 @@ public class AtorController {
 
         String maisAtor = "n";
         do {
+            menuController.faixa();
             System.out.print("Informe o nome do Ator do filme: ");
             String nomeAtor = sc.nextLine().toLowerCase();
-            filmeService.update(nomeFilme,lancamento, new Ator(nomeAtor));
+            filmeService.update(nomeFilme, lancamento, new Ator(nomeAtor));
             System.out.println("Deseja associar mais um ator (s/n)?");
             maisAtor = sc.nextLine().toLowerCase();
 
         } while (!maisAtor.equals("n"));
     }
 
-    public LocalDate lancamento(){
+    public LocalDate lancamento() {
         Scanner sc = new Scanner(System.in);
         LocalDate dataLancamento = null;
         boolean valida = false;
@@ -111,5 +122,5 @@ public class AtorController {
     }
 
 
-    }
+}
 

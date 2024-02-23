@@ -26,6 +26,7 @@ public class DiretorService {
         return diretorRepository.delete(nome);
     }
 
+    //Método para localizar o ator e exibir o seu portfólio de filmes, casp haja.
     public StringBuilder findDiretor(String name){
         Diretor diretor = diretorRepository.findDiretor(name);
         if(diretor != null) {
@@ -42,6 +43,7 @@ public class DiretorService {
         return new StringBuilder("Diretor não encontrado!");
     }
 
+    //Método para listar os Diretores do banco de dados.
     public StringBuilder findAll(){
         List<Diretor> diretores = diretorRepository.Listar();
 
