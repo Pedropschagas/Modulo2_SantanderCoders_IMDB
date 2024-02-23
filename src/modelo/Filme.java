@@ -34,10 +34,10 @@ public class Filme {
     public LocalDate getDataLancamento() {
         return dataLancamento;
     }
-    public List getElenco() {
+    public List<Ator> getElenco() {
         return Collections.unmodifiableList(this.elenco);
     }
-    public List getDiretores() {
+    public List<Diretor> getDiretores() {
         return Collections.unmodifiableList(this.diretores);
     }
 
